@@ -1,0 +1,20 @@
+[
+	{
+		"title": "Producto 0",
+		"price": 0,
+		"thumbnail": "www.algo.com",
+		"id": 1
+	},
+	{
+		"title": "Producto 0",
+		"price": 0,
+		"thumbnail": "www.algo.com",
+		"id": 2
+	},
+	{
+		"title": "Producto 0",
+		"price": 0,
+		"thumbnail": "www.algo.com",
+		"id": 3
+	}
+]
