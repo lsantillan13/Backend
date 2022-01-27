@@ -4,7 +4,6 @@ const ARR = [];
 
 //
 function uniqueID() { return Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}
-
 class Container{
     constructor(){}
 /*Mis métodos*/
@@ -20,7 +19,6 @@ class Container{
         let data = fs.readFileSync('./data/productos.txt', 'utf-8');
         let parsed = JSON.parse(data);
         parsed.length === 0 ? parsed = [{title, price, thumbnail, id: 1}] : parsed.push({title, price, thumbnail, id: parsed.length + 1})
-        console.log(`Product added with Id: ${parsed.length}`)
         fs.writeFileSync('./data/productos.txt', JSON.stringify(parsed, 8, '\t'))
     }//              =>  Recibe un objeto, lo guarda en el archivo y devuelve el id asignado.
 
@@ -41,10 +39,10 @@ class Container{
 
 
     getAll(req, res){
-            const data = fs.readFile(DIR, 'utf-8', function (err, content){
+        const data = fs.readFile(DIR, 'utf-8', function (err, content){
             const parsed = JSON.parse(content);
             if (err) {if (err.code === 'ENOENT'){verifyContent(parsed)}}
-            res.send(parsed)
+            res.json(parsed)
         });
     }//              => Devuelve un array con los bojetos presentes en el archivo.
 
