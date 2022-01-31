@@ -1,5 +1,0 @@
-[{  "title": "asd",
- 	"price": "123",
- 	"img": "asd",
- 	"id": 1}
-]
