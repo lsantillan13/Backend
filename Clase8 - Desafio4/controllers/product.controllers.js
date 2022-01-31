@@ -19,7 +19,7 @@ save(req, res){
      if(fs.existsSync(DIR)){
         const data = fs.readFileSync(DIR, 'utf-8');
         const parsed = JSON.parse(data);
-        /*Y contiene un Empty String o un Empty Array, crea el primer producto con ID 1*/
+        /*Si contiene un Empty Array, crea el primer producto con ID 1*/
         if(parsed.length === 0){
             let defaultProduct = `[{  "title": "${title}",\n \t"price": "${price}",\n \t"img": "${img}",\n \t"id": ${1}}\n]`;
             fs.writeFile(DIR, defaultProduct, err => err ? console.log(`Error: ${err}`) : console.log('{', DIR, '} File Created succesfuly.'))
