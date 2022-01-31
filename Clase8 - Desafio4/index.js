@@ -9,7 +9,7 @@
 /**/ const morgan = require('morgan');                                                                                                           /**/
 /**/ const path = require('path');                                                                                                               /**/
 /**/ const fs = require('fs');                                                                                                                   /**/
-/**/ const Container = require('./class.js');                                                                                                    /**/
+/**/ const Container = require('./controllers/product.controllers.js');                                                                                                    /**/
 /**/                                                                                                                                             /**/
 //------------------------------------------------------------------MODELS-------------------------------------------------------------------------\\
 /**/ //const Products = require('./models/products');                                                                                            /**/
@@ -23,13 +23,15 @@
 //--------------------------------------------------------------------MIDDLEWARES------------------------------------------------------------------\\
 /**/ app.use(express.json());                                                                                                                    /**/
 /**/ app.use(express.urlencoded({extended: false}));                                                                                             /**/
+/**/ app.set('json spaces', 8);                                                                                                                 /**/
 /**/ app.use(cors());                                                                                                                            /**/
 /**/ app.use(morgan('dev'));                                                                                                                     /**/
 //--------------------------------------------------------------------ROUTES-----------------------------------------------------------------------\\
 /**/                                                                                                                                             /**/
-/**/ const productsRoutes = require('./Router/index')                                                                                            /**/
+/**/ const productsRoutes = require('./Router/products.routes')                                                                                  /**/
 /**/                                                        /*------Main Router------*/                                                          /**/
-/**/ app.use('/api', productsRoutes)                                                                                                          /**/
+/**/ app.use('/api', productsRoutes)                                                                                                             /**/
+/**/ app.get('/formulario')                                                                                                                      /**/
 /**/                                                                                                                                             /**/
 /**/                                                                                                                                             /**/
 /**/                                                        /*---Lista de productos---*/                                                         /**/
