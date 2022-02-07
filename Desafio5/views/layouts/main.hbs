@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Lista de Productos</title>
+</head>
+<body>
+        <nav>
+        <ul> <li> <a href="/productos">  <i class="fas fa-directions"/>Ir a productos</i> </a> </li> </ul>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <form id="form">
+        <label>Title</label>
+        <input type="text" placeholder="Product Title" name="title" id="title">
+        <label>Price</label>
+        <input type="number" placeholder="Product Price" name="price" id="price">
+        <label>Image</label>
+        <input type="text" placeholder="Product Image" name="img" id="img">
+        <input type="submit" value="Envíar" id="btn">
+    </form>
+    <script type="text/javascript">
+
+        const handleSubmit = async(e) => {
+            e.preventDefault();
+            const config = { header: {'Content-Type': 'application/json'}};
+                try{
+                    let title = document.querySelector('#title').value;
+                    let price = document.querySelector('#price').value;
+                    let img = document.querySelector('#img').value;
+                    const {data} = await axios.post('http://localhost:8080/api/productos', { title, price, img }, config);
+                    setTimeout(() => {
+                        document.querySelector('#title').value = '';
+                        document.querySelector('#price').value = '';
+                        document.querySelector('#img').value = '';
+                    }, 1500)
+                }catch(error){console.log(error)}
+        };
+    const form = document.getElementById('form').addEventListener('submit', handleSubmit);
+    </script>
+        {{!-- {{{body}}} --}}
+</body>
+</html>

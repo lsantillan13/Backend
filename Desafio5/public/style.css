@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: whitesmoke;
+}
+nav{
+    display: flex;
+}
+.fa-directions{
+    font-size: xx-large;
+}
+ul{
+    list-style: none;
+    display: flex;
+    vertical-align: center;
+    position: relative;
+    justify-content: center;
+    left: 0px;
+    margin: auto;
+    top: 0;
+}
+a{  text-decoration: 1px solid underline;
+    color: inherit;
+    font-size: 1.5em;
+    margin: 0 50px;
+}
+
+form label, form input{
+    font-size: 1.3em;
+    text-align: center;
+    display: block;
+    justify-content: center;
+    vertical-align: center;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 5px auto;
+}
+
+form input{
+    border-radius: 10px;
+    text-align: start;
+    width: 320px;
+    height: 60px;
+}
+
+input[type=submit]{
+    text-align: center;
+    background: cadetblue;
+    color: #d9d9d9;
+    margin-top: 15px;
+}
