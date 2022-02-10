@@ -1,0 +1,12 @@
+{
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "files.eol": "\n",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "prettier.singleQuote": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+    }
+}
