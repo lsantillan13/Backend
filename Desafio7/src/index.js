@@ -47,6 +47,8 @@ app.use('/', (req, res) => { res.render('home');});
 //============ Socket IO ============//
 
 let mensajes = [];
+let usuario = {isAdmin: true};
+
 io.on('connection', (socket) =>{
   console.log(`alguien se está conectando: ${socket.id}`);
 

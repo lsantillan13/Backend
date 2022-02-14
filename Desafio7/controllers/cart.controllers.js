@@ -6,15 +6,13 @@ const ARR = [];
 //ARR.push(JSON.parse(read))
 ARR.flat();
 
-/*Unique ID */
+/*Unique ID */  
 function uniqueID() { return Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));}
 
 class Container {
   constructor() {}
 
   save(req, res) {
-    let id = req.params.id;
-
     /*Si el documento Existe...*/
     if (fs.existsSync(DIR)) {
       /*===== Array de Productos =====*/
@@ -24,23 +22,9 @@ class Container {
       const data = fs.readFileSync(DIR, 'utf-8');
       const parsed = JSON.parse(data);
 
-
-
-
-
-
-      let A = parsed.filter((x) => { return x.id == id; });
-      /*Escribiendo el archivo  */
-      /*ID === id*/
-      if(A === id){ 
-        parsed.push({ id: uniqueID(), timestamp: Date.now(), productos:productsDataParsed});
-        fs.writeFileSync(DIR, JSON.stringify(parsed, 8, '\t'));
-        ARR.push({ id: uniqueID(), timestamp: Date.now(), products:productsDataParsd});
-      }
-      else{
-        console.log('algo');
-      }
-
+      parsed.push({ id: uniqueID(), timestamp: Date.now(), productos:productsDataParsed});
+      fs.writeFileSync(DIR, JSON.stringify(parsed, 8, '\t'));
+      ARR.push({ id: uniqueID(), timestamp: Date.now(), products: productsDataParsed});
       res
         .status(200).send('<h1>Test</h1>');
       /*En caso que el documento no exista, lo crea y le otorga al carrito el id 1*/
