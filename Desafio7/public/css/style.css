@@ -1,0 +1,45 @@
+/*======================== Default ========================*/
+*{ margin: 0; padding: 0; box-sizing: border-box;}
+/*======================== Main Container ========================*/
+#app{ position: absolute; top: 0; width: 100%;height: 100%; background: #191919; color: #fff;}
+
+/*======================== Formulario de productos ========================*/
+form{ background: transparent; }
+form label{ color: #fff; background: transparent;}
+form input{ background: #555; color: #fff; padding: 10px 20px;}
+form input::placeholder{  color: #fff; }
+form input{ border-radius: 10px; text-align: start; width: 320px; height: 45px;}
+input[type=submit]{ text-align: center; background: cadetblue; color: #d9d9d9; margin-top: 15px; }
+img{ height: 120px;}
+form label, form input{ width: max-content; max-width: auto; font-size: 1.3em; text-align: center; display: block;
+justify-content: center; position: relative; left: 0; top: 0; margin: 10px auto; border: none;}
+
+/*======================== Web Socket ========================*/
+#chat-container{ max-width: 600px; margin: 30px auto; bottom: 1px solid #ddd; box-shadow: 1px 3px 5px rgba(0,0,0.5);}
+#chat-window{padding: 14px 0; margin: 0 20px; border-bottom: 1px solid #e9e9e9; color: #555;}
+#output p{color: #aaa; padding: 14px 0; margin: 0 20px;}
+#actions p{ padding: 14px 0; margin: 0 20px; border-bottom: 1px solid #e9e9e9; color: #5555;}
+#chat-container input{ padding: 10px 20px; box-sizing: border-box; border: 0; background: #eee; display: block; width: 100%;}
+#chat-container button{ background: #575ed8; color: #fff; font-size: 18px; border: 0;padding: 12px 0; width: 100%; border-radius: 0 0 2px 2px;}
+.notItalic{font-style: normal; color: brown;}
+p strong { color: blue;}
+p i{color: green;}
+#addToCart{ width: 60px; height: 60px; color: red; font-size: 80px; background: transparent; border: none}
+/*======================== Products Table ========================*/
+h2{font-size: 1.6em; background-color: transparent;}
+.title{background: transparent; height: 60px; color: #fff; text-align: center;}
+ #enviar{ width: 10%; margin-top: 45px; height: 50px;color: #fff; border: 2.5px solid #fff; position: relative; bottom: 15px;}
+table{vertical-align: center; justify-content: center; position: relative;left: 0; top: 0; margin: auto;width: 95%;}
+li{color: #fff;}
+table{background: transparent;}
+table tb tr{
+    justify-content: center;
+    vertical-align: center;
+    position: relative;
+    display: block;
+    margin: auto;
+    left: 0;
+    top: 0;
+}
+
+
