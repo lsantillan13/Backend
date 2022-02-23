@@ -1,7 +1,6 @@
 const fs = require('fs');
-const productsDir = './data/productos.txt';
-const DIR = './data/carrito.txt';
-const ARR = [];
+const dir = './data/carro.txt';
+let ARR = [];
 /*Array*/
 //ARR.push(JSON.parse(read))
 ARR.flat();
@@ -12,160 +11,111 @@ function uniqueID() { return Math.floor(Math.random() * Math.floor(Math.random()
 class Container {
   constructor() {}
 
-  save(req, res) {
-    /*Si el documento Existe...*/
-    if (fs.existsSync(DIR)) {
-      /*===== Array de Productos =====*/
-      const productsData = fs.readFileSync(productsDir, 'utf-8');
-      const productsDataParsed = JSON.parse(productsData);
-      /*===== Array de Carritos =====*/
-      const data = fs.readFileSync(DIR, 'utf-8');
-      const parsed = JSON.parse(data);
+  create(req, res) {
+    if (fs.existsSync(dir)) {
+      /*===== Lectura ======*/
+      let read = fs.readFileSync(dir, 'utf-8');
+      let parse = JSON.parse(read);
 
-      parsed.push({ id: uniqueID(), timestamp: Date.now(), productos:productsDataParsed});
-      fs.writeFileSync(DIR, JSON.stringify(parsed, 8, '\t'));
-      ARR.push({ id: uniqueID(), timestamp: Date.now(), products: productsDataParsed});
-      res
-        .status(200).send('<h1>Test</h1>');
-      /*En caso que el documento no exista, lo crea y le otorga al carrito el id 1*/
+      /*===== Array de Productos =====*/
+      let newCart = { id: uniqueID(), timestamp: Date.now(), productos: []};
+      parse.push(newCart);
+
+      /*===== Para guardar un Array de Carritos =====*/
+      fs.writeFileSync(dir, JSON.stringify(parse, 8, '\t'));
+
+      res.status(200).json({ Message: 'New cart created', id: newCart.id});
     } else {
-      fs.writeFile(DIR, '[]', (err) =>
+      fs.writeFile(dir, '[]', (err) =>
         err
           ? console.log(`Error: ${err}`)
-          : console.log('{', DIR, '} File Created succesfuly.')
+          : console.log('{', dir, '} File Created succesfuly.')
       );
       //ARR.push({ title, price, img, id: 1 });
       res
         .status(200)
         .send({ Message: 'File Created & Product added under ID: 1' });
     }
-  } // Todos => Crear una funcion que me permita repetir el mismo código en el {else if} y el{else}
+  } // =>  Crea un carrito y devuelve su id.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  async getAll(req, res) {
-    /*Si el documento exíste lo lee y envía al cliente su contenido*/
-    if (fs.existsSync(DIR) === true) {
-      const data = fs.readFileSync(DIR, 'utf-8');
-      await res.send(data);
-    } else {
-      /*Si no existe lo crea y muestra un array vacío*/
-      fs.writeFileSync(DIR, '[]');
-      const data = fs.readFileSync(DIR, 'utf-8');
-      await res.send(data);
-    }
-  }
-
-  getById(req, res, next) {
+  getById(req, res) {
     try {
-      const DATA = fs.readFileSync(DIR, 'utf-8');
+      /*Read*/
+      const DATA = fs.readFileSync(dir, 'utf-8');
       let parsed = JSON.parse(DATA);
-      const productId = req.params.id;
-      /*Filtro el id*/
-      let A = parsed.filter((x) => {
-        return x.id == productId;
-      });
-      /*Si el ID Matchea con el parametro, lo devuelvo al cliente / Si hay error el next pasa al Catch*/
-      A[0].id == productId ? res.send(A) : next();
-    } catch (error) {
-      res.send({ Error: 'Producto no encontrado' });
-    }
-  } // => Devuelve el objeto con el parametro solicitado.
 
-  deleteById(req, res, next) {
-    try {
-      const productId = req.params.id;
-      const DATA = fs.readFileSync(DIR, 'utf-8');
-      const PARSED = JSON.parse(DATA);
-      let A = PARSED.filter((x) => {
-        return x.id !== productId;
-      });
-      //console.log(A[0].id)
-      let B = PARSED.filter((x) => {
-        return x.id == productId;
-      });
-      const STRING = JSON.stringify(A, 8, '\t');
-      if (B[0].id == productId) {
-        fs.writeFileSync(DIR, STRING);
-        res.status(204).send();
-        next();
+      /*Params*/
+      const cartId = req.params.id;
+
+      let A = parsed.filter((x) => { return x.id === parseInt(cartId);});
+
+      res.send(A);
+    } catch (error) { res.send({ error: 'Product not found' });}
+  } // => Me permite listar todos los productos guardados en el carrito.
+
+
+  delete(req, res) {
+    try{
+      /*==== Read =====*/
+      const read = JSON.parse(fs.readFileSync(dir, 'utf-8'));
+      /*==== Params ======*/
+      const id = req.params.id;
+      /*==== Filter ======*/
+      let filter = read.filter( (e) => e.id === parseInt(id) );
+      if (filter[0].id === parseInt(id)){
+        const A = read.filter( (e) => e.id !== parseInt(id) );
+        fs.writeFileSync(dir, JSON.stringify(A, '\t', 2));
+        res.status(200).json({Message: 'Cart deleted succesfuly'});
       }
-      return;
-    } catch (error) {
-      res.status(400).send({ Error: error }) && console.log(error);
+      else{res.status(404).json({Message: 'Cart does not exist'});}
     }
-  } // => Elimína el objeto con el parametro solicitado.
+    catch(err){res.status(404).json({Message: 'Cart does not exist'});}
+  } // => Elimina del archivo el objeto con el id buscado.
 
-  deleteAll() {
-    try {
-      fs.unlinkSync(DIR);
-      console.log('{', DIR, '} File Deleted succesfuly.');
-    } catch (e) {
-      console.log('File cannot be deleted...', e);
-    }
-  } //              => Elimina del archivo el objeto con el id buscado.
+  addProd(req, res){
 
-  updateById(req, res, next) {
-    try {
-      const DATA = fs.readFileSync(DIR, 'utf-8');
-      const PARSED = JSON.parse(DATA);
+    /*===== Lectura =====*/
+    const productsData = fs.readFileSync('./data/productos.txt', 'utf-8');
+    const cartData = fs.readFileSync(dir, 'utf-8');
 
-      const productId = req.params.id;
-      const { title, price, img } = req.body;
-      /*Finded*/
-      let A = PARSED.filter((e) => {
-        return e.id == productId;
-      });
-      /*Without*/
-      let B = PARSED.filter((e) => {
-        return e.id != productId;
-      });
-      /*NewArray*/
-      let C = [];
-      /*Añado al array el filtrado sin el producto buscado*/
-      C.push(B);
-      /*Si el producto coincide con el parametro*/
-      if (A[0].id == productId) {
-        /*Actualizo el producto con su body*/
-        const updatedProd = (A[0] = { title, price, img, id: A[0].id });
-        /*Pusheo el nuevo producto al array*/
-        C[0].push(updatedProd);
-        /*Ordeno los indices de menor a mayor según su ID*/
-        const sorted = C[0].sort(function (a, b) {
-          return a.id - b.id;
-        });
-        /*Sobreescribo el archivo con los datos antiguos y último cambio*/
-        fs.writeFileSync(DIR, JSON.stringify(sorted, 8, '\t'));
-        res.status(200).send();
-        /*De haber error de índice el Next() va al Catch*/
-        next();
-      } else {
-        return;
-      }
-    } catch (error) {
-      res.send({ Error: 'Producto no encontrado' });
-    }
+    /*===== Cart ID =====*/
+    let id = req.params.id;
+    let parsed = JSON.parse(cartData);
+    let A = parsed.filter((e) => { return e.id === parseInt(id); });
+
+    /*===== Products ID =====*/
+    let productId = req.params.productId;
+    let parse = JSON.parse(productsData);
+    let B = parse.filter((e) => {return e.id == (productId);});
+
+    /*===== Add Product to Array =====*/ A[0].productos.push(B[0]);
+    fs.writeFileSync(dir, JSON.stringify(parsed, '\t', 2), 'utf-8');
+    res.send(A);
+
+  } // => Para incorporar productos al carrito por su id de producto
+
+  removeProd(req, res){
+    /*===== Reading ======*/
+    let cartRead = fs.readFileSync(dir, 'utf-8');
+    let parsedCart = JSON.parse(cartRead);
+
+    /*===== Params =====*/
+    let id = req.params.id;
+    let id_prod = req.params.id_prod;
+      
+    // Cart
+    let B = parsedCart.filter((e) => { return e.id === parseInt(id);});
+    
+    // Products
+    let A = B[0].productos.filter((e) => { return e.id !== parseInt(id_prod);});
+
+    // Cart
+    B[0].productos = A;
+    fs.writeFileSync(dir, JSON.stringify(parsedCart, '\n', 2));
+    res.send(B[0]);
   }
+
+
 }
 //new Container().test();
 

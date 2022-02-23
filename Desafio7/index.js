@@ -38,12 +38,10 @@ app.engine(
 app.set('view engine', 'hbs');
 /*================== // ==================*/
 const productsRoutes = require('./Router/products.routes');
-const cartRoutes = require('./Router/cart.routes');
 const test =  require('./Router/test.routes');
 //============ API Routes ===========//
 /*                                   */
 app.use('/api', productsRoutes);
-app.use('/cart', cartRoutes);
 app.use('/test', test);
 
 app.get('/formulario');

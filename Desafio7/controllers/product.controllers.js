@@ -87,7 +87,7 @@ class Container {
       const DATA = fs.readFileSync(DIR, 'utf-8');
       const PARSED = JSON.parse(DATA);
       let A = PARSED.filter((x) => {
-        return x.id !== productId;
+        return x.id !== parseInt(productId);
       });
       //console.log(A[0].id)
       let B = PARSED.filter((x) => {
@@ -96,12 +96,12 @@ class Container {
       const STRING = JSON.stringify(A, 8, '\t');
       if (B[0].id == productId) {
         fs.writeFileSync(DIR, STRING);
-        res.status(204).send();
+        res.status(204).json({Message: 'Product deleted'});
         next();
       }
       return;
     } catch (error) {
-      res.status(400).send({ Error: error }) && console.log(error);
+      res.status(400).json({ Error: 'File cannot be deleted', }) && console.log(error);
     }
   } // => Elimína el objeto con el parametro solicitado.
 
