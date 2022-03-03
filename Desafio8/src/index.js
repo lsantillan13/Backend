@@ -1,32 +1,27 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-/*================== // ==================*/ // Server
+if (process.env.NODE_ENV !== 'production') {require('dotenv').config();}
+/*================== // ==================*/
 const express = require('express');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
-/*================== // ==================*/ // Initialization
+/*================== // ==================*/
 const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
-/*================== // ==================*/ // Libraries / etc
+/*================== // ==================*/
 const exphbs = require('express-handlebars');
 const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-/*===== // =====*/ // Messages model
-const { sqlite } = require('./db/sqlite/options');
-const messagesTable = 'messages';
-
-/*================== // ==================*/ // Middlewares
+const fs = require('fs');
+/*================== // ==================*/
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('json spaces', 8);
 app.use(cors());
 app.use(morgan('dev'));
-/*================== // ==================*/ // Engines - Utils
-app.use(express.static(path.join(__dirname, 'public')));
+/*================== // ==================*/
+app.use(express.static(path.join(__dirname, '../public')));
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine(
@@ -39,36 +34,49 @@ app.engine(
   })
 );
 app.set('view engine', 'hbs');
-/*================== // ==================*/ // Routes
-const productsRoutes = require('./Router/products.routes');
-const Model = require('./db/model');
-const Message = new Model(sqlite, messagesTable);
-//============ API Routes ===========// // API
+/*================== // ==================*/
+const productsRoutes = require('../Router/products.routes');
+//============ API Routes ===========//
 /*                                   */
 app.use('/api', productsRoutes);
 app.get('/formulario');
-//=========  Client Routes  =========// // API
+//=========  Client Routes  =========//
 /*                                   */
-app.get('/', (req, res) => { res.render('home');});
+app.use('/', (req, res) => { res.render('home');});
 
 //============ Socket IO ============//
+
+let mensajes = [];
+let usuario = {isAdmin: true};
+
 io.on('connection', (socket) =>{
+  console.log(`alguien se está conectando: ${socket.id}`);
 
   socket.on('products:send', (data) => { // => Recibo producto
     io.sockets.emit('products:send', data); // => Devuelvo producto
   });
 
   socket.on('chat:message', (data) => { // => Recibo el Mensaje
-    Message.saveMessage(data);
     io.sockets.emit('chat:message', data); // => Devuelvo el Mensaje
+    const mensaje = {user: data.username, message: data.message};
+    
+    let stringed = JSON.stringify(mensajes, 8, '\t');
+    mensajes.push({mensaje});
+    fs.writeFile('./data/mensajes.txt', stringed,  (err) => {
+      err ? console.log('err') : console.log('message appended successfully');
+    });
   });
-  /*Messages*/
+
   socket.on('chat:typing', (data) => { // => Recibo el usuario
     socket.broadcast.emit('chat:typing', data); // => Devuelvo el usuario
   });
 
 });
-app.get('/mensajes',  (req, res ) => { Message.getMessages(req, res); });
 //--------------------------------- Server ---------------------------------//
-const server = httpServer.listen(app.get('port'), () => { console.log('Server on port', app.get('port')); });
-server.on('error',error => { console.log('Error en el servidor', error); });
+const server = httpServer.listen(app.get('port'), () => {
+  console.log('Server on port', app.get('port'));
+});
+
+server.on('error',error => {
+  console.log('Error en el servidor', error);
+});
