@@ -1,0 +1,145 @@
+PS C:\Users\User> mongo
+MongoDB shell version v5.0.3
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("a8a6dbc1-fce7-48f3-ba07-0174162247f5") }
+MongoDB server version: 5.0.3
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+We recommend you begin using "mongosh".
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2021-10-27T17:27:58.363-03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2021-10-27T17:27:58.363-03:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> use ecommerce
+switched to db ecommerce
+> db.productos.insert([{nombre: 'Fideos', categoría: 'Harina', precio: 120}, {nombre: 'Leche', categoria: 'Lácteos', precio: 580}, {nombre: 'Crema', categoria: 'Lácteos', precio: 900}, {nombre: 'Arvejas', categoria: 'Congelados', precio: 1280}, {nombre: 'Helado', categoria: 'Congelados', precio: 1700}, {nombre: 'Mayonesa', categoria: 'Lácteos', precio: 2300}, {nombre: 'Pan', categoria: 'Harina', precio: 2860}, {nombre: 'Fernet', categoria: 'Bebidas', precio: 3350}, {nombre: 'Gin Beefeater', categoria: 'Bebidas', precio: 4320}, {nombre: 'Blue label', categoria: 'Bebidas', precio: 4990}]);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 10,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.mensajes.insert([{user: 'Lautaro', message: 'Hola'}, {user: 'Tomas', message: 'Hola, que tal'},
+... {user: 'Agustín', message: 'Buenos días'}, {user: 'Felipe', message: 'Buenas'} , {user: 'Paolo', message: 'Buenas noches'}, {user: 'Pepe', message: 'Adios'}, {user: 'Santiago', message: 'Hasta luego'}, {user: 'Dario', message: 'Chau'}, {user: 'Matias', message: 'Adieu'}, {user: 'Zeta', message: 'Hasta pronto'}]);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 10,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.productos.find();
+{ "_id" : ObjectId("6179b6668f4033ecbc7544fc"), "nombre" : "Fideos", "categoría" : "Harina", "precio" : 120 }
+{ "_id" : ObjectId("6179b6668f4033ecbc7544fd"), "nombre" : "Leche", "categoria" : "Lácteos", "precio" : 580 }
+{ "_id" : ObjectId("6179b6668f4033ecbc7544fe"), "nombre" : "Crema", "categoria" : "Lácteos", "precio" : 900 }
+{ "_id" : ObjectId("6179b6668f4033ecbc7544ff"), "nombre" : "Arvejas", "categoria" : "Congelados", "precio" : 1280 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754500"), "nombre" : "Helado", "categoria" : "Congelados", "precio" : 1700 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754501"), "nombre" : "Mayonesa", "categoria" : "Lácteos", "precio" : 2300 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754502"), "nombre" : "Pan", "categoria" : "Harina", "precio" : 2860 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754503"), "nombre" : "Fernet", "categoria" : "Bebidas", "precio" : 3350 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754504"), "nombre" : "Gin Beefeater", "categoria" : "Bebidas", "precio" : 4320 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754505"), "nombre" : "Blue label", "categoria" : "Bebidas", "precio" : 4990 }
+> db.mensajes.find()
+{ "_id" : ObjectId("6179b66f8f4033ecbc754506"), "user" : "Lautaro", "message" : "Hola" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc754507"), "user" : "Tomas", "message" : "Hola, que tal" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc754508"), "user" : "Agustín", "message" : "Buenos días" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc754509"), "user" : "Felipe", "message" : "Buenas" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc75450a"), "user" : "Paolo", "message" : "Buenas noches" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc75450b"), "user" : "Pepe", "message" : "Adios" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc75450c"), "user" : "Santiago", "message" : "Hasta luego" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc75450d"), "user" : "Dario", "message" : "Chau" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc75450e"), "user" : "Matias", "message" : "Adieu" }
+{ "_id" : ObjectId("6179b66f8f4033ecbc75450f"), "user" : "Zeta", "message" : "Hasta pronto" }
+> db.productos.count({});
+10
+> db.mensajes.count({});
+10
+> db.productos.insert({nombre: 'Heineken', categoria: 'Bebidas', precio: 200});
+WriteResult({ "nInserted" : 1 })
+> db.productos.find({precio: {$lt: 1000});
+... ^C
+
+> db.productos.find({precio: {$lt: 1000}});
+{ "_id" : ObjectId("6179b6668f4033ecbc7544fc"), "nombre" : "Fideos", "categoría" : "Harina", "precio" : 120 }
+{ "_id" : ObjectId("6179b6668f4033ecbc7544fd"), "nombre" : "Leche", "categoria" : "Lácteos", "precio" : 580 }
+{ "_id" : ObjectId("6179b6668f4033ecbc7544fe"), "nombre" : "Crema", "categoria" : "Lácteos", "precio" : 900 }
+{ "_id" : ObjectId("6179b6b88f4033ecbc754510"), "nombre" : "Heineken", "categoria" : "Bebidas", "precio" : 200 }
+> db.productos.find({precio:{$gt:1000, $lt: 3000}});
+{ "_id" : ObjectId("6179b6668f4033ecbc7544ff"), "nombre" : "Arvejas", "categoria" : "Congelados", "precio" : 1280 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754500"), "nombre" : "Helado", "categoria" : "Congelados", "precio" : 1700 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754501"), "nombre" : "Mayonesa", "categoria" : "Lácteos", "precio" : 2300 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754502"), "nombre" : "Pan", "categoria" : "Harina", "precio" : 2860 }
+> db.productos.find({precio: {$gt:3000}});
+{ "_id" : ObjectId("6179b6668f4033ecbc754503"), "nombre" : "Fernet", "categoria" : "Bebidas", "precio" : 3350 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754504"), "nombre" : "Gin Beefeater", "categoria" : "Bebidas", "precio" : 4320 }
+{ "_id" : ObjectId("6179b6668f4033ecbc754505"), "nombre" : "Blue label", "categoria" : "Bebidas", "precio" : 4990 }
+> db.productos.find({},{"nombre":1, "_id":0}).sort({"precio": 1}).skip(2).limit(1)
+{ "nombre" : "Leche" }
+> db.productos.update({"precio":{$gt:0, $lt:5000}},{$set: {"stock":100}}, {"multi":true});
+WriteResult({ "nMatched" : 11, "nUpserted" : 0, "nModified" : 11 })
+> db.productos.update({"precio": {$gt:4000}}, {$set: {"stock":0}}, {"multi":true});
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+> db.productos.deleteMany({"precio": {$lt: 1000}})
+{ "acknowledged" : true, "deletedCount" : 4 }
+> db.createUser({user:'pepe', pwd:'asd456', roles:[{role:'read', db:'ecommerce'}]})
+Successfully added user: {
+        "user" : "pepe",
+        "roles" : [
+                {
+                        "role" : "read",
+                        "db" : "ecommerce"
+                }
+        ]
+}
+> ^C
+bye
+{"t":{"$date":"2021-10-27T20:32:20.406Z"},"s":"I",  "c":"QUERY",    "id":22791,   "ctx":"js","msg":"Failed to end logical session","attr":{"lsid":{"id":{"$uuid":"a8a6dbc1-fce7-48f3-ba07-0174162247f5"}},"error":{"code":6,"codeName":"HostUnreachable","errmsg":"network error while attempting to run command 'endSessions' on host '127.0.0.1:27017' "}}}
+PS C:\Users\User> mongo -u 'pepe' -p 'asd456' --authenticationDatabase 'ecommerce'
+MongoDB shell version v5.0.3
+connecting to: mongodb://127.0.0.1:27017/?authSource=ecommerce&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("1b8c1060-933d-4c3a-9d7d-d20622699cb6") }
+MongoDB server version: 5.0.3
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+We recommend you begin using "mongosh".
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+> show dbs
+ecommerce  0.000GB
+> use ecommerce
+switched to db ecommerce
+> db.productos.insert({asd:'asd'});
+WriteCommandError({
+        "ok" : 0,
+        "errmsg" : "not authorized on ecommerce to execute command { insert: \"productos\", ordered: true, lsid: { id: UUID(\"1b8c1060-933d-4c3a-9d7d-d20622699cb6\") }, $db: \"ecommerce\" }",
+        "code" : 13,
+        "codeName" : "Unauthorized"
+})
+>
