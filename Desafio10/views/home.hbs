@@ -1,0 +1,59 @@
+{{!-- =============================================== Products Section ================================================= --}}
+{{!-- // Products creation formulary --}}
+  <form id="form">
+    <label>Title</label>
+    <input type="text" placeholder="Product Title" name="title" id="title" required>
+
+    <label>Price</label>
+    <input type="number" placeholder="Product Price" name="price" id="price" required>
+
+    <label>Image URL</label>
+    <input type="text" placeholder="Product Image" name="img" id="img" required>
+
+    <input type="submit" value="Envíar" id="btn">
+  </form>
+
+{{!-- // Posting products on the table --}}
+<div class="container title"><h2>Productos disponibles</h2></div>
+    <table class="table container" id="myTable">
+        <thead>
+            <tr class="table-titles container">
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody id="tb">
+
+        </tbody>
+    </table>
+
+{{!--================== Chat Section ==================--}}
+<section class="chat-section">
+ <div id="chat-container">
+      <h2 class="form-title"> Message Center</h2>
+      <div class="form-group">
+        <label>Correo electrónico:</label>
+        <input
+          type="email"
+          required placeholder="Correo electrónico"
+          name="username"
+          id="username"/>
+      </div>
+
+      <div id="chat-window">
+        <div id="output"> </div>
+        <div id="actions"> </div>
+      </div>
+    
+      <div class="form-group">
+        <input 
+          type="text"
+          placeholder="Prueba escribiendo:  Hola!😃"
+          name="message"
+          id="message"
+        />
+        <button id="send">Envíar </button>
+      </div>
+  </div>
+</section>
