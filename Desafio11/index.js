@@ -68,7 +68,61 @@ io.on('connection', (socket) =>{
   });
 
 });
-app.get('/mensajes',  (req, res ) => { /*Message.getMessages(req, res);*/ });
+//app.get('/mensajes',  (req, res ) => { /*Message.getMessages(req, res);*/ });
+
+//=============================================================== Desafio 22  ===============================================================//
+//============ Faker.JS ============//
+const {faker} = require('@faker-js/faker');
+app.use('/api/productos-test/', (req, res) => { res.render('test'); });
+let getImage = () => { return faker.image.image(); };
+
+app.use('/api/productos-get', (req, res) => { const prod = [
+  {
+    title: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    img: getImage(),
+  },{
+    title: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    img: getImage(),
+  },{
+    title: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    img: getImage(),
+  },{
+    title: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    img: getImage(),
+  },{
+    title: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    img: getImage(),
+  }
+]; res.send(prod); });
+//============ Normalizr ============//
+
+const { normalize, schema} = require('normalizr');
+
+const message = new schema.Entity('message');
+const user = new schema.Entity('user');
+
+const messagesList = new schema.Entity('messageList',{ author: user, message: message });
+
+const messages = new schema.Entity('messages',{ messages: [messagesList]} );
+
+let messag = {
+  id: 1,
+  user: 'Lautaro',
+  message: 'hola'
+};
+
+const normalized = normalize(messag, messages);
+console.log(normalized);
+
+
+
+
+
 //--------------------------------- Server ---------------------------------//
 const server = httpServer.listen(app.get('port'), () => { console.log('Server on port', app.get('port')); });
 server.on('error',error => { console.log('Error en el servidor', error); });

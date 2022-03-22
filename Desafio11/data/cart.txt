@@ -1,0 +1,18 @@
+[
+  {
+    "id": 438929135911,
+    "timestamp": 1647477506562,
+    "products": [
+      {
+        "title": "asd",
+        "price": "123",
+        "img": "www.imgur.com",
+        "id": 5,
+        "description": "",
+        "timestamp": 1647374002669,
+        "stock": 5,
+        "codigo": 6963915568
+      }
+    ]
+  }
+]

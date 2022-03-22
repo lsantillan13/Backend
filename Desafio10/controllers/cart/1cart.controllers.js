@@ -100,8 +100,8 @@ class Container {
     let parsedCart = JSON.parse(cartRead);
 
     /*===== Params =====*/
-    let id = req.params.id;
-    let id_prod = req.params.id_prod;
+    let id = req.params.cartId;
+    let id_prod = req.params.productId;
       
     // Cart
     let B = parsedCart.filter((e) => { return e.id === parseInt(id);});
