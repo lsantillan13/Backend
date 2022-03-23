@@ -56,6 +56,9 @@ router.get('/cart/:id', (req, res) => {DAO.getCart(req, res); });
 // => Add to && Remove from Cart
 router.get('/cart/:cartId/add/:productId', (req, res) => {DAO.addToCart(req, res); });
 router.delete('/cart/:cartId/remove/:productId', (req, res) => {DAO.removeFromCart(req, res); });
+
+// => Manage Messages
+//router.get('/mensajes', (req, res) => {MSG.createTable(req, res); });
 /*============================================ TODO ============================================*/
 //      /*===== Firebase =====*/
 /*

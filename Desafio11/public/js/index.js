@@ -1,7 +1,6 @@
-
 window.onload = function(){ // => When document is ready...
-  let socket = io.connect();   
-
+  let socket = io.connect();
+  
   /*===== Formulary Handling =====*/
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -41,7 +40,7 @@ window.onload = function(){ // => When document is ready...
         /*===== Manipulation =====*/
         productName.innerHTML += `<p class="parrafo"> ${e.title} </p>`;
         productPrice.innerHTML += `<p class="parrafo"> ${e.price} </p>`;
-        productPicture.innerHTML += `<p class="parrafo"> <img src="${e.img}" alt="image_of_${e.title}" class="product_image"/> </p>`;
+        productPicture.innerHTML += `<p class="parrafo"> <img src="https://source.unsplash.com/random/300x200" alt="image_of_${e.title}" class="product_image"/> </p>`;
         /*===== Appending to Table =====*/
         tableBody.appendChild(tableRow);
         tableRow.appendChild(productName);
@@ -67,7 +66,6 @@ window.onload = function(){ // => When document is ready...
       img
     });
   });
-
   socket.on('products:send', function (data){
     let tbody = document.getElementById('tb');
     let tdName = document.createElement('td');
@@ -77,7 +75,8 @@ window.onload = function(){ // => When document is ready...
     /*Inner*/
     tdName.innerHTML += `<p class="parrafo"> ${data.title} </p>`;
     tdPrice.innerHTML += `<p class="parrafo"> ${data.price}</p´>`;
-    tdPicture.innerHTML += `<p> <img src="${data.img}" alt="image_of_${data.title}" class="product_image"/> </p>`;
+    tdPicture.innerHTML += `<p> <img src="https://source.unsplash.com/random/300x200?random" alt="image_of_${data.title}" class="product_image"/> </p>`;
+    //tdPicture.innerHTML += `<p> <img src="${data.img}" alt="image_of_${data.title}" class="product_image"/> </p>`;
     for (product in data){
       /*Append*/
       tbody.appendChild(tr);
@@ -109,36 +108,55 @@ window.onload = function(){ // => When document is ready...
   /*===== SocketIO Handling =====*/
   
   let message = document.getElementById('message');
-  let username = document.getElementById('username');
+  let userEmail = document.getElementById('userEmail');
   let output = document.getElementById('output');
   let actions = document.getElementById('actions');
   let btn = document.getElementById('send');
 
   (async function(){
-    let response = await axios('http://localhost:8080/mensajes');
+    /*Vars*/
+    let table = [];
+    let response = await axios.get('http://localhost:8080/mensajes');
     const data = response.data;
-    data.forEach(e => {
-      output.innerHTML += `<p> <strong>${e.username}</strong> <i class="notItalic">${getTheDate()}</i> : <i>${e.message}</i> </p>`;
+    const user = new normalizr.schema.Entity('users');
+    const mySchema = [{ users: [user] }];
+    const normalizedData = normalizr.normalize(data, mySchema);
+    let Data = normalizedData.result;
+    /*Functionality*/
+    for (let i = 0; i < Data.length; i++){let content = { id: Data[i].id, author: Data[i].author, message: Data[i].message }; table.push(content); }
+    table.forEach(e => {
+      output.innerHTML += `<p> <strong>${e.author.id}</strong> <i class="notItalic">${e.message.date}</i> : <i>${e.message.message}</i> </p>`;
     });
+  })(); // =>  Normalizr
 
-  })();
-
-  message !== '' && username !== '' && btn.addEventListener('click', function() {
+  
+  message !== '' && userEmail !== '' && btn.addEventListener('click', function() {
     socket.emit('chat:message', {
-      message: message.value,
-      username: username.value,
-      date: getTheDate()
+      author: {
+        id: userEmail.value,
+        name: 'userName',
+        lastName: 'userLastName',
+        age: 'userAge',
+        nick: 'userNick',
+        avatar: 'userAvatar'
+      },
+      message:{
+        message: message.value,
+        date: getTheDate()
+      }
     });
-  });
+  }); // => Anulando envio de mensajes si no hay mensaje o email
+
 
   message.addEventListener('keypress', function(){
-    socket.emit('chat:typing', username.value);
-  });
+    socket.emit('chat:typing', userEmail.value);
+  }); // => ... Está escribiendo.
+
 
   socket.on('chat:message', function(data){
     actions.innerHTML = '';
-    output.innerHTML += `<p> <strong>${data.username}</strong> <i class="notItalic">${getTheDate()}</i> : <i>${data.message}</i> </p>`;
-  });
+    output.innerHTML += `<p> <strong>${data.author.id}</strong> <i class="notItalic">${getTheDate()}</i> : <i>${data.message.message}</i> </p>`;
+  }); // =>  Envio de mensajes
 
   socket.on('chat:typing', function(data){
     actions.innerHTML = `<p><em>${data} está escribiendo...</em></p>`;

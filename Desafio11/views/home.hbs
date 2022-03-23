@@ -1,7 +1,15 @@
 {{!-- =============================================== Products Section ================================================= --}}
-<head>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
+{{#section 'head'}}
+    <script src="./js/index.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+{{/section}}
+
+
+
 {{!-- // Products creation formulary --}}
   <form id="form">
     <label>Title</label>
@@ -15,7 +23,7 @@
 
     <input type="submit" value="Envíar" id="btn">
   </form>
-
+  
 {{!-- // Posting products on the table --}}
 <div class="container title"><h2>Productos disponibles</h2></div>
     <table class="table container" id="myTable">
@@ -26,9 +34,7 @@
                 <th>Imagen</th>
             </tr>
         </thead>
-        <tbody id="tb">
-
-        </tbody>
+        <tbody id="tb"> </tbody>
     </table>
 
 {{!--================== Chat Section ==================--}}
@@ -40,8 +46,8 @@
         <input
           type="email"
           required placeholder="Correo electrónico"
-          name="username"
-          id="username"/>
+          name="email"
+          id="userEmail"/>
       </div>
 
       <div id="chat-window">
@@ -54,8 +60,7 @@
           type="text"
           placeholder="Prueba escribiendo:  Hola!😃"
           name="message"
-          id="message"
-        />
+          id="message"/>
         <button id="send">Envíar </button>
       </div>
   </div>

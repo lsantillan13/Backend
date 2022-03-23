@@ -41,7 +41,7 @@ app.engine(
 app.set('view engine', 'hbs');
 /*================== // ==================*/ // Routes
 const productsRoutes = require('./Router/products.routes');
-const Model = require('./db/model');
+const Model = require('../Daos/mensajes/Sqlite.js');
 const Message = new Model(sqlite, messagesTable);
 //============ API Routes ===========// // API
 /*                                   */
