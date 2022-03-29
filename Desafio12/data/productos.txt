@@ -1,0 +1,68 @@
+[
+	{
+		"title": "asd",
+		"price": "123",
+		"img": "asddas",
+		"id": 1
+	},
+	{
+		"title": "asd",
+		"price": "123",
+		"img": "www.imgur.com",
+		"id": 3,
+		"description": "",
+		"timestamp": 1647369085687,
+		"stock": 5,
+		"codigo": 5911662844
+	},
+	{
+		"title": "asd",
+		"price": "123",
+		"img": "www.imgur.com",
+		"id": 4,
+		"description": "",
+		"timestamp": 1647369085849,
+		"stock": 5,
+		"codigo": 14976798489
+	},
+	{
+		"title": "asd",
+		"price": "123",
+		"img": "www.imgur.com",
+		"id": 5,
+		"description": "",
+		"timestamp": 1647374002669,
+		"stock": 5,
+		"codigo": 6963915568
+	},
+	{
+		"title": "assssss",
+		"price": "11111",
+		"img": "www.imgur.com",
+		"id": 6,
+		"description": "",
+		"timestamp": 1647374030394,
+		"stock": 5,
+		"codigo": 93314683754
+	},
+	{
+		"title": "asd",
+		"price": 200,
+		"img": "asd",
+		"id": 7,
+		"description": "",
+		"timestamp": 1647374124949,
+		"stock": 5,
+		"codigo": 436134884099
+	},
+	{
+		"title": "asd",
+		"price": 200,
+		"img": "asd",
+		"id": 8,
+		"description": "",
+		"timestamp": 1647374127860,
+		"stock": 5,
+		"codigo": 273157592635
+	}
+]
