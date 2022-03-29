@@ -68,21 +68,21 @@
 
 # Clase 20.
 ###### DbaaS & Firebase	-	Segunda entrega del Proyecto Fina
-###### -	Entregar
+###### -	Aprobado
 
 # Clase 21.
 ###### Trabajo con datos: Mocks
 
 # Clase 22.
 ###### Trabajo con datos: Normalización	-	DESAFÍO EXPIRA EL LUNES 21/03/2022 23:59HS		-	Desafío: Mocks y normalización
-###### -	Entregar
+###### -	Aprobado
 
 # Clase 23.
 ###### Cookies, Sesiones, Storages - Parte 1
 
 # Clase 24.
 ###### Cookies, Sesiones, Storages - Parte 2		-	DESAFÍO EXPIRA EL LUNES 28/03/2022 23:59HS		-	LOG-IN POR FORMULARI
-###### -	Entregar
+###### -	Aprobado
 
 # Clase 25.
 ###### Autorización y autenticación
