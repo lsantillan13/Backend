@@ -10,7 +10,7 @@ const io = new IOServer(httpServer);
 /*================== // ==================*/ // Libraries / etc
 const exphbs = require('express-handlebars');
 const path = require('path');
-
+const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 /*===== // =====*/ // Messages model
