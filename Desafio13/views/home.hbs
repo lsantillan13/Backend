@@ -1,0 +1,74 @@
+{{!-- =============================================== Products Section ================================================= --}}
+{{#section 'head'}}
+    <script src="./js/index.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+{{/section}}
+
+<div class="userStatus" id="userStatus">
+  <h2 class="userInfo" id="userInfo">Login de usuario</h2>
+  <form id="userForm">
+    <label>Ingrese su nombre</label>
+    <input type="text" name="username" id="username">
+    <input type="submit" value="send" id="login">
+  </form>
+</div>
+
+{{!-- // Products creation formulary --}}
+  <form id="form">
+    <label>Title</label>
+    <input type="text" placeholder="Product Title" name="title" id="title" required>
+
+    <label>Price</label>
+    <input type="number" placeholder="Product Price" name="price" id="price" required>
+
+    <label>Image URL</label>
+    <input type="text" placeholder="Product Image" name="img" id="img" required>
+
+    <input type="submit" value="Envíar" id="btn">
+  </form>
+  
+{{!-- // Posting products on the table --}}
+<div class="container title"><h2>Productos disponibles</h2></div>
+    <table class="table container" id="myTable">
+        <thead>
+            <tr class="table-titles container">
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody id="tb"> </tbody>
+    </table>
+
+{{!--================== Chat Section ==================--}}
+<section class="chat-section">
+ <div id="chat-container">
+      <h2 class="form-title"> Message Center</h2>
+      <div class="form-group">
+        <label>Correo electrónico:</label>
+        <input
+          type="email"
+          required placeholder="Correo electrónico"
+          name="email"
+          id="userEmail"/>
+      </div>
+
+      <div id="chat-window">
+        <div id="output"> </div>
+        <div id="actions"> </div>
+      </div>
+    
+      <div class="form-group">
+        <input 
+          type="text"
+          placeholder="Prueba escribiendo:  Hola!😃"
+          name="message"
+          id="message"/>
+        <button id="send">Envíar </button>
+      </div>
+  </div>
+</section>
